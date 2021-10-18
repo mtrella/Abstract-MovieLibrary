@@ -16,62 +16,61 @@ namespace MovieLibrary
             logger.Info("Program started");
 
             MovieFile movieFile = new MovieFile(mfile);
+            ShowFile showFile = new ShowFile(sFile);
+            VideoFile videoFile = new VideoFile(vFile);
             
             string choice = "";
-            do
-            {
+
                 Console.WriteLine();
                 Console.WriteLine("Please select an option: ");
-                Console.WriteLine("1. Add Movie");
-                Console.WriteLine("2. Display All Movies");
-                Console.WriteLine("3. Enter to quit");
+                Console.WriteLine("1. What media type to display");
+                Console.WriteLine("2. Enter to quit");
                 //input
                 choice = Console.ReadLine();
                 logger.Info("User choice: {Choice}", choice);
                 if (choice == "1")
                 {
-                    // Add movie 
-                    Movie movie = new Movie();
-                    Console.WriteLine("Enter movie title");
-                    movie.title = Console.ReadLine();
+                    // Ask what type to display
+                    Console.WriteLine("What type would you like to display (Movie, Show, or Video)");
+                    string typeChoice = "";
+                    typeChoice = Console.ReadLine();
 
-                    if (movieFile.isUniqueTitle(movie.title)){
-                        string input;
-                        do
+                    if (typeChoice == "Movie"){
+                        
+                        foreach(Movie m in movieFile.Movies)
                         {
-                            //enter genre
-                            Console.WriteLine("Enter genre (or type 'finished' to quit)");
-                            //input
-                            input = Console.ReadLine();
-                            // asks for additional genres until "finished" is typed
-                            if (input != "finished" && input.Length > 0)
-                            {
-                                movie.genres.Add(input);
-                            }
-                        } while (input != "finished");
-
-                        if (movie.genres.Count ==0)
-                        {
-                            movie.genres.Add("(no genres listed)");
+                            Console.WriteLine(m.Display());
                         }
-                        // add movie
-                        movieFile.AddMovie(movie);
+                            
                     }
                     else
                     {
-                        Console.WriteLine("Movie title already exists\n");
+                        Console.WriteLine("Incorrent entry");
+                    }
+                    if (typeChoice == "Show")
+                    {
+                        foreach(Show s in showFile.Shows)
+                        {
+                            Console.WriteLine(s.Display());
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Incorrent entry");
+                    }
+                    if (typeChoice == "Video")
+                    {
+                        foreach(Video v in videoFile.Videos)
+                        {
+                            Console.WriteLine(v.Display());
+                        }
                     }
                 } else if (choice == "2")
                 {
-                    // Display ALL movies
-                    foreach(Movie m in movieFile.Movies)
-                    {
-                        Console.WriteLine(m.DisplayMovie());
-                    }
+                    //Quit the program
+                    Console.WriteLine("You have exited the program");
                 }
-            } while (choice == "1" || choice == "2");
-
-            logger.Info("Program ended");
         }
     }
 }
+

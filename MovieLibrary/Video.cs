@@ -5,22 +5,20 @@ using System.Threading.Tasks;
 
 namespace MovieLibrary
 {
-    public class Video : Movie
+    public class Video : MovieType
     {
-        public UInt64 videoId { get; set; }
-        public string title { get; set; }
         public string format { get; set; }
         public UInt64 length { get; set; }
-        public List<UInt64> regions { get; set; }
+        public UInt64 regions { get; set; }
 
         public Video()
         {
-            regions = new List<UInt64>();
+        
         }
 
-        public string Display()
+        public override string Display()
         {
-            return $"ID: {videoId}\nTitle: {title}\nFormat: {format}\nLength: {length}\nRegions: {string.Join(", ", regions)}\n";
+            return $"ID: {Id}\nTitle: {title}\nFormat: {format}\nLength: {length}\nRegions: {string.Join(", ", regions)}\n";
         }
     }
 }

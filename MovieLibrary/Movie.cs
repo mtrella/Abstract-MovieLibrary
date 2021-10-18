@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 namespace MovieLibrary
 {
-    public abstract class Movie
+    public class Movie : MovieType
     {
         // public properties
-        public UInt64 movieId { get; set; }
-        public string title { get; set; }
         public List<string> genres { get; set; }
 
         // constructor
@@ -17,9 +15,9 @@ namespace MovieLibrary
         }
 
         // public method
-        public string DisplayMovie()
+        public override string Display()
         {
-            return $"ID: {movieId}\nTitle: {title}\nGenres: {string.Join(", ", genres)}\n";
+            return $"ID: {Id}\nTitle: {title}\nGenres: {string.Join(", ", genres)}\n";
         }
 
 
